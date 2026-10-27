@@ -12,18 +12,42 @@
         <p>Loading scenario...</p>
     </div>
 
-    <div id="generator">
-        
-        <label for="gender-select">Gender:</label>
+     <div id="generator">
 
-        <select id="gender-select">
-        </select>
+        <h3>Character Options</h3>
+
+        <div class="field">
+            <label for="gender-select">
+                Gender
+            </label>
+
+            <select id="gender-select">
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="name-input">
+                First Name
+            </label>
+
+            <input
+                type="text"
+                id="name-input"
+                placeholder="Custom name">
+
+            <select id="name-select">
+                <option value="">
+                    Random
+                </option>
+            </select>
+        </div>
 
         <button id="generate-button">
             Generate Character
         </button>
 
-        <div id="character-output">
+    </div>
+    <div id="character-output">
             No character generated yet.
     </div>
 

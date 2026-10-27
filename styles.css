@@ -1,6 +1,40 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
+    margin: 20px;
+    padding: 0 60px;
+}
+
+#scenario {
+    margin-bottom: 20px;
+}
+
+#generator {
+    margin-bottom: 20px;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.field input,
+.field select {
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+
+#generate-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+}
+
+#character-output {
+    margin-top: 20px;
 }

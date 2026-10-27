@@ -48,13 +48,58 @@ async function loadScenario() {
     `;
 
     document.getElementById("scenario").innerHTML = html;
+    populateNameOptions();
+}
+
+function getRandomUnique(array, count) {
+
+    const shuffled = [...array]
+        .sort(() => Math.random() - 0.5);
+    
+    return shuffled.slice(0, count);
 }
 
 loadScenario();
 
 document
     .getElementById("generate-button")
-    .addEventListener("click", generateCharacter);
+    .addEventListener(
+        "click",
+        generateCharacter
+    );
+
+document
+    .getElementById("gender-select")
+    .addEventListener(
+        "change",
+        populateNameOptions
+    );
+
+function populateNameOptions() {
+    const selectedGender =
+        document.getElementById("gender-select").value;
+
+    let names;
+
+    if (selectedGender.includes("woman")) {
+        names = scenarioData["women-names"];
+    } else {
+        names = scenarioData["men-names"];
+    }
+
+    const nameSelect =
+        document.getElementById("name-select");
+
+    nameSelect.innerHTML = 
+        '<option value="">Random</option>';
+
+    names.forEach(name => {
+        nameSelect.innerHTML +=
+            `<option value="${name}">
+                ${name}
+            </option>`;
+    }); 
+}
 
 function generateCharacter() {
 
@@ -72,20 +117,110 @@ function generateCharacter() {
         professions = scenarioData["men-professions"];
     }
 
+    const customName =
+        document.getElementById("name-input")
+            .value
+            .trim();
+
+    const selectedName =
+        document.getElementById("name-select")
+            .value;
+
     const randomName =
-        names[Math.floor(Math.random() * names.length)];
+        customName ||
+        selectedName ||
+        getRandomUnique(names, 1)[0];
 
     const randomSurname =
-        scenarioData["surnames"][
-            Math.floor(Math.random() * scenarioData["surnames"].length)
-        ];
+        getRandomUnique(
+            scenarioData["surnames"],
+            1
+        )[0];
 
     const randomProfession =
-        professions[Math.floor(Math.random() * professions.length)];
+        getRandomUnique(
+            professions,
+            1
+        )[0];
+
+    const looks =
+    getRandomUnique(
+        scenarioData["looks"],
+        3
+    );
+
+    const skills =
+        getRandomUnique(
+            scenarioData["skills"],
+            3
+        );
+
+    const resources =
+        getRandomUnique(
+            scenarioData["resources"],
+            3
+        );
+
+    const validConnections =
+    scenarioData["connections"]
+        .filter(connection => {
+
+            if (selectedGender.includes("woman")) {
+                return connection[1] !== "f";
+            }
+
+            return connection[1] !== "m";
+        });
+
+    const connections =
+        getRandomUnique(
+            validConnections,
+            3
+        );
+
+    const supernaturalMark =
+        getRandomUnique(
+            scenarioData["supernatural_marks"],
+            1
+        )[0];
+
+    const character = {
+        name: `${randomName} ${randomSurname}`,
+        gender: selectedGender,
+        profession: randomProfession,
+        looks,
+        skills,
+        resources,
+        connections,
+        supernaturalMark
+    };
+
+    console.log(character);
 
     document.getElementById("character-output").innerHTML = `
         <p><strong>Name:</strong> ${randomName} ${randomSurname}</p>
         <p><strong>Gender:</strong> ${selectedGender}</p>
         <p><strong>Profession:</strong> ${randomProfession}</p>
+        <p><strong>Looks:</strong></p>
+        <ul>
+            ${looks.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+
+        <p><strong>Skills:</strong></p>
+        <ul>
+            ${skills.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+
+        <p><strong>Resources:</strong></p>
+        <ul>
+            ${resources.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+
+        <p><strong>Connections:</strong></p>
+        <ul>
+            ${connections.map(item => `<li>${item[0]}</li>`).join("")}
+        </ul>
+
+        <p><strong>Supernatural Mark:</strong> ${supernaturalMark}</p>
     `;
 }
