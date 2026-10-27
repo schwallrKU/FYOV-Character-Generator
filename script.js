@@ -49,6 +49,8 @@ async function loadScenario() {
 
     document.getElementById("scenario").innerHTML = html;
     populateNameOptions();
+    populateSurnameOptions();
+    populateProfessionOptions();
 }
 
 function getRandomUnique(array, count) {
@@ -70,10 +72,12 @@ document
 
 document
     .getElementById("gender-select")
-    .addEventListener(
-        "change",
-        populateNameOptions
-    );
+    .addEventListener("change", () => {
+
+        populateNameOptions();
+        populateProfessionOptions();
+
+    });
 
 function populateNameOptions() {
     const selectedGender =
@@ -99,6 +103,63 @@ function populateNameOptions() {
                 ${name}
             </option>`;
     }); 
+}
+
+function populateSurnameOptions() {
+
+    const surnameSelect =
+        document.getElementById("surname-select");
+
+    surnameSelect.innerHTML =
+        '<option value="">Random</option>';
+
+    scenarioData["surnames"].forEach(surname => {
+
+        surnameSelect.innerHTML += `
+            <option value="${surname}">
+                ${surname}
+            </option>
+        `;
+
+    });
+
+}
+
+function populateProfessionOptions() {
+
+    const selectedGender =
+        document.getElementById("gender-select").value;
+
+    let professions;
+
+    if (selectedGender.includes("woman")) {
+
+        professions =
+            scenarioData["women-professions"];
+
+    } else {
+
+        professions =
+            scenarioData["men-professions"];
+
+    }
+
+    const professionSelect =
+        document.getElementById("profession-select");
+
+    professionSelect.innerHTML =
+        '<option value="">Random</option>';
+
+    professions.forEach(profession => {
+
+        professionSelect.innerHTML += `
+            <option value="${profession}">
+                ${profession}
+            </option>
+        `;
+
+    });
+
 }
 
 function generateCharacter() {
@@ -131,13 +192,35 @@ function generateCharacter() {
         selectedName ||
         getRandomUnique(names, 1)[0];
 
+    const customSurname =
+        document.getElementById("surname-input")
+            .value
+            .trim();
+
+    const selectedSurname =
+        document.getElementById("surname-select")
+            .value;
+
     const randomSurname =
+        customSurname ||
+        selectedSurname ||
         getRandomUnique(
             scenarioData["surnames"],
             1
         )[0];
 
+    const customProfession =
+        document.getElementById("profession-input")
+            .value
+            .trim();
+
+    const selectedProfession =
+        document.getElementById("profession-select")
+            .value;
+
     const randomProfession =
+        customProfession ||
+        selectedProfession ||
         getRandomUnique(
             professions,
             1
