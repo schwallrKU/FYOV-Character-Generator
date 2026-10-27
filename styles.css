@@ -30,8 +30,7 @@ body {
     margin-bottom: 5px;
 }
 
-#generate-button {
-    margin-top: 10px;
+.button-row button {
     padding: 8px 16px;
 }
 
@@ -45,6 +44,30 @@ body {
     flex-wrap: wrap;
 }
 
+.looks-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.skills-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.resources-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.connections-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .field input,
 .field select {
     width: 300px;
@@ -52,3 +75,14 @@ body {
     box-sizing: border-box;
 }
 
+.button-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.button-row button {
+    min-width: 180px;
+    padding: 8px 16px;
+}

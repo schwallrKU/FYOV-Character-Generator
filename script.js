@@ -51,6 +51,11 @@ async function loadScenario() {
     populateNameOptions();
     populateSurnameOptions();
     populateProfessionOptions();
+    populateLookOptions();
+    populateSkillOptions();
+    populateResourceOptions();
+    populateConnectionOptions();
+    populateMarkOptions();
 }
 
 function getRandomUnique(array, count) {
@@ -71,13 +76,40 @@ document
     );
 
 document
+    .getElementById("reset-button")
+    .addEventListener(
+        "click",
+        resetSelections
+    );
+
+document
     .getElementById("gender-select")
     .addEventListener("change", () => {
 
         populateNameOptions();
         populateProfessionOptions();
+        populateConnectionOptions();
 
     });
+
+function resetSelections() {
+
+    document
+        .querySelectorAll("input")
+        .forEach(input => {
+            input.value = "";
+        });
+
+    document
+        .querySelectorAll("select")
+        .forEach(select => {
+            select.selectedIndex = 0;
+        });
+
+    document.getElementById("character-output").innerHTML =
+    "No character generated yet.";
+
+}
 
 function populateNameOptions() {
     const selectedGender =
@@ -162,6 +194,146 @@ function populateProfessionOptions() {
 
 }
 
+function populateLookOptions() {
+
+    for (let i = 1; i <= 3; i++) {
+
+        const lookSelect =
+            document.getElementById(
+                `look${i}-select`
+            );
+
+        lookSelect.innerHTML =
+            '<option value="">Random</option>';
+
+        scenarioData["looks"].forEach(look => {
+
+            lookSelect.innerHTML += `
+                <option value="${look}">
+                    ${look}
+                </option>
+            `;
+
+        });
+
+    }
+
+}
+
+function populateSkillOptions() {
+
+    for (let i = 1; i <= 3; i++) {
+
+        const skillSelect =
+            document.getElementById(
+                `skill${i}-select`
+            );
+
+        skillSelect.innerHTML =
+            '<option value="">Random</option>';
+
+        scenarioData["skills"].forEach(skill => {
+
+            skillSelect.innerHTML += `
+                <option value="${skill}">
+                    ${skill}
+                </option>
+            `;
+
+        });
+
+    }
+
+}
+
+function populateResourceOptions() {
+
+    for (let i = 1; i <= 3; i++) {
+
+        const resourceSelect =
+            document.getElementById(
+                `resource${i}-select`
+            );
+
+        resourceSelect.innerHTML =
+            '<option value="">Random</option>';
+
+        scenarioData["resources"].forEach(resource => {
+
+            resourceSelect.innerHTML += `
+                <option value="${resource}">
+                    ${resource}
+                </option>
+            `;
+
+        });
+
+    }
+
+}
+
+function populateConnectionOptions() {
+
+    const selectedGender =
+        document.getElementById("gender-select").value;
+
+    const validConnections =
+        scenarioData["connections"]
+            .filter(connection => {
+
+                if (selectedGender.includes("woman")) {
+                    return connection[1] !== "f";
+                }
+
+                return connection[1] !== "m";
+
+            });
+
+    for (let i = 1; i <= 3; i++) {
+
+        const connectionSelect =
+            document.getElementById(
+                `connection${i}-select`
+            );
+
+        connectionSelect.innerHTML =
+            '<option value="">Random</option>';
+
+        validConnections.forEach(connection => {
+
+            connectionSelect.innerHTML += `
+                <option value="${connection[0]}">
+                    ${connection[0]}
+                </option>
+            `;
+
+        });
+
+    }
+
+}
+
+function populateMarkOptions() {
+
+    const markSelect =
+        document.getElementById("mark-select");
+
+    markSelect.innerHTML =
+        '<option value="">Random</option>';
+
+    scenarioData["supernatural_marks"]
+        .forEach(mark => {
+
+            markSelect.innerHTML += `
+                <option value="${mark}">
+                    ${mark}
+                </option>
+            `;
+
+        });
+
+}
+
 function generateCharacter() {
 
     const selectedGender =
@@ -226,42 +398,139 @@ function generateCharacter() {
             1
         )[0];
 
-    const looks =
-    getRandomUnique(
-        scenarioData["looks"],
-        3
-    );
+    const randomLooks =
+        getRandomUnique(
+            scenarioData["looks"],
+            3
+        );
 
-    const skills =
+    const look1 =
+        document.getElementById("look1-input").value.trim() ||
+        document.getElementById("look1-select").value ||
+        randomLooks[0];
+
+    const look2 =
+        document.getElementById("look2-input").value.trim() ||
+        document.getElementById("look2-select").value ||
+        randomLooks[1];
+
+    const look3 =
+        document.getElementById("look3-input").value.trim() ||
+        document.getElementById("look3-select").value ||
+        randomLooks[2];
+
+    const looks = [
+        look1,
+        look2,
+        look3
+    ];
+
+    const randomSkills =
         getRandomUnique(
             scenarioData["skills"],
             3
         );
 
-    const resources =
+    const skill1 =
+        document.getElementById("skill1-input").value.trim() ||
+        document.getElementById("skill1-select").value ||
+        randomSkills[0];
+
+    const skill2 =
+        document.getElementById("skill2-input").value.trim() ||
+        document.getElementById("skill2-select").value ||
+        randomSkills[1];
+
+    const skill3 =
+        document.getElementById("skill3-input").value.trim() ||
+        document.getElementById("skill3-select").value ||
+        randomSkills[2];
+
+    const skills = [
+        skill1,
+        skill2,
+        skill3
+    ];
+
+    const randomResources =
         getRandomUnique(
             scenarioData["resources"],
             3
         );
 
+    const resource1 =
+        document.getElementById("resource1-input").value.trim() ||
+        document.getElementById("resource1-select").value ||
+        randomResources[0];
+
+    const resource2 =
+        document.getElementById("resource2-input").value.trim() ||
+        document.getElementById("resource2-select").value ||
+        randomResources[1];
+
+    const resource3 =
+        document.getElementById("resource3-input").value.trim() ||
+        document.getElementById("resource3-select").value ||
+        randomResources[2];
+
+    const resources = [
+        resource1,
+        resource2,
+        resource3
+    ];
+
+
     const validConnections =
-    scenarioData["connections"]
-        .filter(connection => {
+        scenarioData["connections"]
+            .filter(connection => {
 
-            if (selectedGender.includes("woman")) {
-                return connection[1] !== "f";
-            }
+                if (selectedGender.includes("woman")) {
+                    return connection[1] !== "f";
+                }
 
-            return connection[1] !== "m";
-        });
+                return connection[1] !== "m";
 
-    const connections =
+            });
+
+    const randomConnections =
         getRandomUnique(
             validConnections,
             3
         );
 
+    const connection1 =
+        document.getElementById("connection1-input").value.trim() ||
+        document.getElementById("connection1-select").value ||
+        randomConnections[0][0];
+
+    const connection2 =
+        document.getElementById("connection2-input").value.trim() ||
+        document.getElementById("connection2-select").value ||
+        randomConnections[1][0];
+
+    const connection3 =
+        document.getElementById("connection3-input").value.trim() ||
+        document.getElementById("connection3-select").value ||
+        randomConnections[2][0];
+
+    const connections = [
+        connection1,
+        connection2,
+        connection3
+    ];
+
+    const customMark =
+        document.getElementById("mark-input")
+            .value
+            .trim();
+
+    const selectedMark =
+        document.getElementById("mark-select")
+            .value;
+
     const supernaturalMark =
+        customMark ||
+        selectedMark ||
         getRandomUnique(
             scenarioData["supernatural_marks"],
             1
@@ -301,7 +570,7 @@ function generateCharacter() {
 
         <p><strong>Connections:</strong></p>
         <ul>
-            ${connections.map(item => `<li>${item[0]}</li>`).join("")}
+            ${connections.map(item => `<li>${item}</li>`).join("")}
         </ul>
 
         <p><strong>Supernatural Mark:</strong> ${supernaturalMark}</p>
