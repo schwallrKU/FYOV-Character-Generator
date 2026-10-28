@@ -2,19 +2,41 @@
 <html>
 <head>
     <title>Five Hundred Year Old Vampire Character Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Five Hundred Year Old Vampire Character Generator</h1>
     <h2>Classroom Character Creation Tool</h2>
-
-    <div id="scenario">
+    <hr>
+    <div 
+        id="scenario"
+        class="manuscript-panel">
         <p>Loading scenario...</p>
     </div>
 
      <div id="generator">
 
         <h3>Character Options</h3>
+
+        <div class="generator-notes manuscript-panel">
+            <ul>
+                <li>You must select a gender to start.</li>
+                <li>Type custom options into the text boxes.</li>
+                <li>Use the dropdown to select from a list.</li>
+                <li>Leave a field blank and select random for a random option.</li>
+                <li>Click "Generate Character" to create your character, repeat to populate new random options.</li>
+                <li>Click "Reset Selections" to clear all fields and selections</li>
+                <li>Click "Lock Character" to copy the generated character into the form.
+                    <ul>
+                    <li>Once locked, you can manually edit any field.</li>
+                    <li>After locking, delete the text and select random if you would like to generate new random options.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
         <div class="field">
             <label for="gender-select">
@@ -316,20 +338,85 @@
 
 <div class="button-row">
 
-    <button id="generate-button">
-        Generate Character
-    </button>
+    <div class="button-group">
+        <button 
+            id="generate-button"
+            class="action-button">
+            Generate Character
+        </button>
+        <p class="button-note">
+            Generate a character based on the selected options.
+        </p>
+    </div>
 
-    <button id="reset-button">
-        Reset Selections
-    </button>
+    <div class="button-group">
+        <button
+            id="import-character"
+            class="action-button">
+            Import Character
+        </button>
+        <p class="button-note">
+            Load a previously exported character.
+        </p>
+    </div>
+
+
+    <div class="button-group">
+        <button 
+            id="reset-button"
+            class="action-button">
+            Reset Selections
+        </button>
+        <p class="button-note">
+            Reset all selections to default.
+        </p>
+    </div>
 
 </div>
 
-    </div>
-    <div id="character-output">
+<div id="character-output">
             No character generated yet.
+</div>
+
+<div
+    id="character-actions"
+    class="hidden">
+
+    <div class="button-group">
+
+        <button 
+            id="lock-character"
+            class="action-button">
+            Lock Character
+        </button>
+
+        <p class="button-note">
+            Copy the generated character into the form for manual editing.
+        </p>
+
     </div>
+
+    <div class="button-group">
+
+        <button 
+            id="export-json"
+            class="action-button">
+            Export Character
+        </button>
+
+        <p class="button-note">
+            Export the generated character as a JSON file.
+        </p>
+
+    </div>
+
+</div>
+
+<input
+    type="file"
+    id="import-json"
+    accept=".json"
+    style="display:none;">
 
     <script src="script.js"></script>
 </body>

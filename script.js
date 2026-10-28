@@ -1,5 +1,7 @@
 let scenarioData;
 
+let character = null;
+
 async function loadScenario() {
     const response = await fetch("scenarios/seville-1510.json");
     const scenario = await response.json();
@@ -76,10 +78,66 @@ document
     );
 
 document
+    .getElementById("import-character")
+    .addEventListener(
+        "click",
+        () => {
+            document
+                .getElementById("import-json")
+                .click();
+        }
+    );
+
+document
     .getElementById("reset-button")
     .addEventListener(
         "click",
         resetSelections
+    );
+
+document
+    .getElementById("import-json")
+    .addEventListener(
+        "change",
+        event => {
+
+            const file =
+                event.target.files[0];
+
+            if (!file) return;
+
+            const reader =
+                new FileReader();
+
+           reader.onload = e => {
+
+                try {
+
+                    character =
+                        JSON.parse(
+                            e.target.result
+                        );
+
+                    loadCharacterIntoForm(
+                        character
+                    );
+
+                    renderCharacter(
+                        character
+                    );
+
+                } catch {
+
+                    alert(
+                        "Invalid character file."
+                    );
+
+                }
+
+            };
+            reader.readAsText(file);
+
+        }
     );
 
 document
@@ -92,7 +150,43 @@ document
 
     });
 
+document
+    .getElementById("lock-character")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!character) return;
+
+            loadCharacterIntoForm(character);
+
+        }
+    );
+
+document.getElementById("export-json").addEventListener("click", () => {
+    if (!character) return;
+
+    const blob = new Blob(
+        [JSON.stringify(character, null, 2)],
+        { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download =
+        `${character.firstName}-${character.surname}`
+            .replace(/\s+/g, "-") + ".json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+});
+
+
 function resetSelections() {
+
+    character = null;
 
     document
         .querySelectorAll("input")
@@ -105,6 +199,12 @@ function resetSelections() {
         .forEach(select => {
             select.selectedIndex = 0;
         });
+    
+    character = null;
+
+    document
+        .getElementById("character-actions")
+        .classList.add("hidden");
 
     document.getElementById("character-output").innerHTML =
     "No character generated yet.";
@@ -536,8 +636,9 @@ function generateCharacter() {
             1
         )[0];
 
-    const character = {
-        name: `${randomName} ${randomSurname}`,
+    character = {
+        firstName: randomName,
+        surname: randomSurname,
         gender: selectedGender,
         profession: randomProfession,
         looks,
@@ -547,32 +648,114 @@ function generateCharacter() {
         supernaturalMark
     };
 
-    console.log(character);
+    renderCharacter(character);
+}
+
+function renderCharacter(character) {
 
     document.getElementById("character-output").innerHTML = `
-        <p><strong>Name:</strong> ${randomName} ${randomSurname}</p>
-        <p><strong>Gender:</strong> ${selectedGender}</p>
-        <p><strong>Profession:</strong> ${randomProfession}</p>
+        <p>
+            <strong>Name:</strong>
+            ${character.firstName} ${character.surname}
+        </p>
+        <p><strong>Gender:</strong> ${character.gender}</p>
+        <p><strong>Profession:</strong> ${character.profession}</p>
+
         <p><strong>Looks:</strong></p>
         <ul>
-            ${looks.map(item => `<li>${item}</li>`).join("")}
+            ${character.looks
+                .map(item => `<li>${item}</li>`)
+                .join("")}
         </ul>
 
         <p><strong>Skills:</strong></p>
         <ul>
-            ${skills.map(item => `<li>${item}</li>`).join("")}
+            ${character.skills
+                .map(item => `<li>${item}</li>`)
+                .join("")}
         </ul>
 
         <p><strong>Resources:</strong></p>
         <ul>
-            ${resources.map(item => `<li>${item}</li>`).join("")}
+            ${character.resources
+                .map(item => `<li>${item}</li>`)
+                .join("")}
         </ul>
 
         <p><strong>Connections:</strong></p>
         <ul>
-            ${connections.map(item => `<li>${item}</li>`).join("")}
+            ${character.connections
+                .map(item => `<li>${item}</li>`)
+                .join("")}
         </ul>
 
-        <p><strong>Supernatural Mark:</strong> ${supernaturalMark}</p>
+        <p>
+            <strong>Supernatural Mark:</strong>
+            ${character.supernaturalMark}
+        </p>
     `;
+
+    document
+        .getElementById("character-actions")
+        .classList.remove("hidden");
+}
+
+function loadCharacterIntoForm(character) {
+
+
+    document.getElementById("gender-select").value =
+        character.gender;
+
+
+    populateNameOptions();
+    populateProfessionOptions();
+    populateConnectionOptions();
+
+    document.getElementById("name-input").value =
+    character.firstName || "";
+
+    document.getElementById("surname-input").value =
+    character.surname || "";
+
+    document.getElementById("profession-input").value =
+        character.profession;
+
+    document.getElementById("look1-input").value =
+        character.looks[0] || "";
+
+    document.getElementById("look2-input").value =
+        character.looks[1] || "";
+
+    document.getElementById("look3-input").value =
+        character.looks[2] || "";
+
+    document.getElementById("skill1-input").value =
+        character.skills[0] || "";
+
+    document.getElementById("skill2-input").value =
+        character.skills[1] || "";
+
+    document.getElementById("skill3-input").value =
+        character.skills[2] || "";
+
+    document.getElementById("resource1-input").value =
+        character.resources[0] || "";
+
+    document.getElementById("resource2-input").value =
+        character.resources[1] || "";
+
+    document.getElementById("resource3-input").value =
+        character.resources[2] || "";
+
+    document.getElementById("connection1-input").value =
+        character.connections[0] || "";
+
+    document.getElementById("connection2-input").value =
+        character.connections[1] || "";
+
+    document.getElementById("connection3-input").value =
+        character.connections[2] || "";
+
+    document.getElementById("mark-input").value =
+        character.supernaturalMark;
 }
