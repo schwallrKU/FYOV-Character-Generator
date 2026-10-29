@@ -63,19 +63,75 @@ A generated character should contain:
 
 ```json
 {
-  "character_code": "",
-  "scenario_slug": "",
-  "name": "",
+  "firstName": "",
   "surname": "",
   "gender": "",
   "profession": "",
-  "look": "",
-  "skills": [],
-  "resources": [],
-  "connections": [],
-  "supernatural_mark": ""
+
+  "looks": [
+    {
+      "text": "",
+      "status": "active"
+    }
+  ],
+
+  "skills": [
+    {
+      "text": "",
+      "status": "active"
+    }
+  ],
+
+  "resources": [
+    {
+      "text": "",
+      "status": "active"
+    }
+  ],
+
+  "connections": [
+    {
+      "text": "",
+      "status": "active"
+    }
+  ],
+
+  "supernaturalMarks": [
+    {
+      "text": "",
+      "status": "active"
+    }
+  ],
+
+  "relationships": [
+    null, null, null, null, null, null
+  ],
+
+  "memories": [
+    null, null, null, null, null, null
+  ],
+
+  "notes": ""
 }
 ```
+
+### Status Values
+
+Character traits may contain a status value.
+
+Supported statuses:
+
+- active
+- checked
+- lost
+- forgotten
+
+checked is currently used primarily for skills.
+
+lost indicates the item has been lost.
+
+forgotten indicates the item has been forgotten.
+
 
 ## Design Principles
 

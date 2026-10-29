@@ -6,29 +6,58 @@
 </head>
 <body>
 
-    <div class="sheet">
+    <h1>Character Manager</h1>
 
-        <h1>Five Hundred Year Old Vampire</h1>
+    <div class="button-group">
 
-        <div class="summary">
+        <button
+            id="import-character"
+            class="action-button">
+            Import Character
+        </button>
 
-            <p>
-                <strong>Player Name:</strong>
-                ________________________________
-            </p>
+        <p class="button-note">
+            Load a previously exported character.
+        </p>
 
-            <p>
-                <strong>Character Name:</strong>
-                ________________________________
-            </p>
+    </div>
 
-            <p>
-                <strong>Gender:</strong>
-                __________________
-                &nbsp;&nbsp;&nbsp;
-                <strong>Profession:</strong>
-                __________________
-            </p>
+    <input
+        type="file"
+        id="import-json"
+        accept=".json"
+        style="display:none;">
+
+    <div class="manager-container"> 
+
+        <div class="section">
+
+            <h2>Character Information</h2>
+
+            <div class="character-info-row">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name">
+            </div>
+
+            <div class="character-info-row">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname">
+            </div>
+
+            <div class="character-info-row">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option value="cis-man">cis-man</option>
+                    <option value="cis-woman">cis-woman</option>
+                    <option value="trans-man">trans-man</option>
+                    <option value="trans-woman">trans-woman</option>
+                </select>
+            </div>
+
+            <div class="character-info-row">
+                <label for="profession">Profession</label>
+                <input type="text" id="profession">
+            </div>
 
         </div>
 
@@ -36,26 +65,12 @@
 
             <div class="section">
                 <h2>Looks</h2>
-                <ol>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                </ol>
+                <div id="looks-editor"></div>
             </div>
 
             <div class="section">
                 <h2>Supernatural Marks</h2>
-                <ol>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                </ol>
+                <div id="marks-editor"></div>
             </div>
 
         </div>
@@ -64,77 +79,89 @@
 
             <div class="section">
                 <h2>Skills</h2>
-                <ol>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                </ol>
+                <div id="skills-editor"></div>
             </div>
 
             <div class="section">
                 <h2>Resources</h2>
-                <ol>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                    <li>____________________</li>
-                </ol>
+                <div id="resources-editor"></div>
             </div>
 
         </div>
 
         <div class="section">
+
             <h2>Connections</h2>
 
-            <ol>
-                <li>____________________________________________</li>
-                <li>____________________________________________</li>
-                <li>____________________________________________</li>
-                <li>____________________________________________</li>
-                <li>____________________________________________</li>
-                <li>____________________________________________</li>
-            </ol>
+            <div id="connections-editor"></div>
+
         </div>
 
-        <div class="page-break"></div>
-
         <div class="section">
+
             <h2>Relationships</h2>
 
-            <div class="relationship-line"></div>
-            <div class="relationship-line"></div>
-            <div class="relationship-line"></div>
-            <div class="relationship-line"></div>
-            <div class="relationship-line"></div>
-            <div class="relationship-line"></div>
+            <div class="relationship-grid">
+
+                <div>
+                    <textarea id="relationship-1"></textarea>
+                    <textarea id="relationship-2"></textarea>
+                    <textarea id="relationship-3"></textarea>
+                </div>
+
+                <div>
+                    <textarea id="relationship-4"></textarea>
+                    <textarea id="relationship-5"></textarea>
+                    <textarea id="relationship-6"></textarea>
+                </div>
+
+            </div>
+
         </div>
 
         <div class="section">
+
             <h2>Memories</h2>
 
-            <div class="memory-line"></div>
-            <div class="memory-line"></div>
-            <div class="memory-line"></div>
-            <div class="memory-line"></div>
-            <div class="memory-line"></div>
-            <div class="memory-line"></div>
+            <div class="relationship-grid">
+                <div>
+                    <textarea id="memory-1"></textarea>
+                    <textarea id="memory-2"></textarea>
+                    <textarea id="memory-3"></textarea>
+                </div>
+
+                <div>
+                    <textarea id="memory-4"></textarea>
+                    <textarea id="memory-5"></textarea>
+                    <textarea id="memory-6"></textarea>
+                </div>
+            </div>
+
         </div>
 
-        <div class="section notes-section">
+
+        <div class="section">
+
             <h2>Notes</h2>
 
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
-            <div class="note-line"></div>
+            <textarea
+                id="notes"
+                rows="12"></textarea>
+
         </div>
+    </div>
+    <button
+            id="export-json"
+            class="action-button">
+            Export Updated JSON
+    </button>
+
+    <button
+        id="print-sheet"
+        class="action-button">
+        Open Print Sheet
+    </button>
+    
+    <script src="manager.js"></script>
 </body>
+</html>

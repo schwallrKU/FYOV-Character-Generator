@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Character Sheet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="sheet-controls no-print">
+
+        <input
+            type="file"
+            id="import-json"
+            accept=".json">
+
+        <button onclick="window.print()">
+            Print / Save PDF
+        </button>
+
+        <button
+            type="button"
+            onclick="window.location.href='manager.html'">
+            Return to Manager
+        </button>
+
+        <button
+            type="button"
+            onclick="window.location.href='index.html'">
+            Return to Creator
+        </button>
+
+    </div>
+
+    
+    <div class="sheet">
+
+        <h1>Five Hundred Year Old Vampire</h1>
+
+        <div class="summary">
+
+            <p>
+                <strong>Player Name:</strong>
+                ________________________________
+            </p>
+
+            <p>
+                <strong>Character Name:</strong>
+                <span id="character-name"></span>
+            </p>
+
+            <p>
+                <strong>Gender:</strong>
+                <span id="gender"></span>
+
+                &nbsp;&nbsp;&nbsp;
+
+                <strong>Profession:</strong>
+                <span id="profession"></span>
+            </p>
+
+        </div>
+
+        <div class="two-column">
+
+            <div class="section">
+                <h2>Looks</h2>
+                <ol>
+                    <li id="look-1"></li>
+                    <li id="look-2"></li>
+                    <li id="look-3"></li>
+                    <li id="look-4"></li>
+                    <li id="look-5"></li>
+                    <li id="look-6"></li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Supernatural Marks</h2>
+                <ol>
+                    <li id="mark-1"></li>
+                    <li id="mark-2"></li>
+                    <li id="mark-3"></li>
+                    <li id="mark-4"></li>
+                    <li id="mark-5"></li>
+                    <li id="mark-6"></li>
+                </ol>
+            </div>
+
+        </div>
+
+        <div class="two-column">
+
+            <div class="section">
+                <h2>Skills</h2>
+                <ol>
+                    <li id="skill-1"></li>
+                    <li id="skill-2"></li>
+                    <li id="skill-3"></li>
+                    <li id="skill-4"></li>
+                    <li id="skill-5"></li>
+                    <li id="skill-6"></li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Resources</h2>
+                <ol>
+                    <li id="resource-1"></li>
+                    <li id="resource-2"></li>
+                    <li id="resource-3"></li>
+                    <li id="resource-4"></li>
+                    <li id="resource-5"></li>
+                    <li id="resource-6"></li>
+                </ol>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <h2>Connections</h2>
+
+            <ol>
+                <li id="connection-1"></li>
+                <li id="connection-2"></li>
+                <li id="connection-3"></li>
+                <li id="connection-4"></li>
+                <li id="connection-5"></li>
+                <li id="connection-6"></li>
+            </ol>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>Relationships</h2>
+
+            <div id="relationship-1" class="relationship-line"></div>
+            <div id="relationship-2" class="relationship-line"></div>
+            <div id="relationship-3" class="relationship-line"></div>
+            <div id="relationship-4" class="relationship-line"></div>
+            <div id="relationship-5" class="relationship-line"></div>
+            <div id="relationship-6" class="relationship-line"></div>
+        </div>
+
+        <div class="section">
+            <h2>Memories</h2>
+
+            <div id="memory-1" class="memory-line"></div>
+            <div id="memory-2" class="memory-line"></div>
+            <div id="memory-3" class="memory-line"></div>
+            <div id="memory-4" class="memory-line"></div>
+            <div id="memory-5" class="memory-line"></div>
+            <div id="memory-6" class="memory-line"></div>
+        </div>
+
+        <div class="section notes-section">
+
+            <h2>Notes</h2>
+
+        <div id="notes"></div>
+
+</div>
+    <script src="sheet.js"></script>
+</body>

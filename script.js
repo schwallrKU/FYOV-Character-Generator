@@ -96,6 +96,25 @@ document
     );
 
 document
+    .getElementById("print-sheet")
+    .addEventListener(
+        "click",
+        () => {
+
+            localStorage.setItem(
+                "character",
+                JSON.stringify(character)
+            );
+
+            window.open(
+                "sheet.html",
+                "_blank"
+            );
+
+        }
+    );
+
+document
     .getElementById("import-json")
     .addEventListener(
         "change",
