@@ -25,7 +25,7 @@ body {
 h1,
 h2,
 h3 {
-    font-family: "Crimson Text", san-serif;
+    font-family: "Crimson Text", serif;
     color: #4b2f1a;
     font-weight: bold;
 }
@@ -234,6 +234,95 @@ h1 {
 
     .generator-notes {
         display: block;
+    }
+
+}
+.sheet {
+    width: 8in;
+    margin: 0 auto;
+    padding: 0.15in;
+    box-sizing: border-box;
+}
+
+.summary {
+    margin-bottom: 15px;
+}
+
+.summary p {
+    margin: 4px 0;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.section {
+    margin-bottom: 6px;
+}
+
+.section h2 {
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+.section li {
+    margin-bottom: 2px;
+}
+
+.section ol {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.large-line {
+    height: 20px;
+    border-bottom: 1px solid #8b7355;
+    margin-bottom: 4px;
+}
+
+
+.page-break {
+    page-break-before: always;
+    break-before: page;
+}
+
+.relationship-line,
+.memory-line {
+    height: 36px;
+
+    border-bottom: 1px solid #8b7355;
+
+    margin-bottom: 8px;
+}
+
+.notes-section {
+    margin-top: 20px;
+}
+
+.note-line {
+    height: 20px;
+
+    border-bottom: 1px solid #8b7355;
+
+    margin-bottom: 4px;
+}
+
+@media print {
+
+    body {
+        margin: 0;
+        padding: 0;
+
+        background: white;
+    }
+
+    .sheet {
+        max-width: none;
+        width: 100%;
+
+        padding: 0.2in;
     }
 
 }
