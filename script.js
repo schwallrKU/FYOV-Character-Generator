@@ -519,11 +519,6 @@ function generateCharacter() {
         document.getElementById("look3-select").value ||
         randomLooks[2];
 
-    const looks = [
-        look1,
-        look2,
-        look3
-    ];
 
     const randomSkills =
         getRandomUnique(
@@ -546,11 +541,6 @@ function generateCharacter() {
         document.getElementById("skill3-select").value ||
         randomSkills[2];
 
-    const skills = [
-        skill1,
-        skill2,
-        skill3
-    ];
 
     const randomResources =
         getRandomUnique(
@@ -572,12 +562,6 @@ function generateCharacter() {
         document.getElementById("resource3-input").value.trim() ||
         document.getElementById("resource3-select").value ||
         randomResources[2];
-
-    const resources = [
-        resource1,
-        resource2,
-        resource3
-    ];
 
 
     const validConnections =
@@ -613,12 +597,6 @@ function generateCharacter() {
         document.getElementById("connection3-select").value ||
         randomConnections[2][0];
 
-    const connections = [
-        connection1,
-        connection2,
-        connection3
-    ];
-
     const customMark =
         document.getElementById("mark-input")
             .value
@@ -639,13 +617,77 @@ function generateCharacter() {
     character = {
         firstName: randomName,
         surname: randomSurname,
+
         gender: selectedGender,
         profession: randomProfession,
-        looks,
-        skills,
-        resources,
-        connections,
-        supernaturalMark
+
+        looks: [
+            { text: look1, status: "active" },
+            { text: look2, status: "active" },
+            { text: look3, status: "active" },
+            null,
+            null,
+            null
+        ],
+
+        skills: [
+            { text: skill1, status: "active" },
+            { text: skill2, status: "active" },
+            { text: skill3, status: "active" },
+            null,
+            null,
+            null
+        ],
+
+        resources: [
+            { text: resource1, status: "active" },
+            { text: resource2, status: "active" },
+            { text: resource3, status: "active" },
+            null,
+            null,
+            null
+        ],
+
+        connections: [
+            { text: connection1, status: "active" },
+            { text: connection2, status: "active" },
+            { text: connection3, status: "active" },
+            null,
+            null,
+            null
+        ],
+
+        supernaturalMarks: [
+            {
+                text: supernaturalMark,
+                status: "active"
+            },
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+
+        relationships: [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+
+        memories: [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+
+        notes: ""
     };
 
     renderCharacter(character);
@@ -664,34 +706,41 @@ function renderCharacter(character) {
         <p><strong>Looks:</strong></p>
         <ul>
             ${character.looks
-                .map(item => `<li>${item}</li>`)
+                .filter(item => item)
+                .map(item => `<li>${item.text}</li>`)
                 .join("")}
         </ul>
 
         <p><strong>Skills:</strong></p>
         <ul>
             ${character.skills
-                .map(item => `<li>${item}</li>`)
+                .filter(item => item)
+                .map(item => `<li>${item.text}</li>`)
                 .join("")}
         </ul>
 
         <p><strong>Resources:</strong></p>
         <ul>
             ${character.resources
-                .map(item => `<li>${item}</li>`)
+                .filter(item => item)
+                .map(item => `<li>${item.text}</li>`)
                 .join("")}
         </ul>
 
         <p><strong>Connections:</strong></p>
         <ul>
             ${character.connections
-                .map(item => `<li>${item}</li>`)
+                .filter(item => item)
+                .map(item => `<li>${item.text}</li>`)
                 .join("")}
         </ul>
 
         <p>
             <strong>Supernatural Mark:</strong>
-            ${character.supernaturalMark}
+            ${character.supernaturalMarks
+                .filter(item => item)
+                .map(item => item.text)
+                .join(", ")}
         </p>
     `;
 
@@ -702,60 +751,58 @@ function renderCharacter(character) {
 
 function loadCharacterIntoForm(character) {
 
-
     document.getElementById("gender-select").value =
         character.gender;
-
 
     populateNameOptions();
     populateProfessionOptions();
     populateConnectionOptions();
 
     document.getElementById("name-input").value =
-    character.firstName || "";
+        character.firstName || "";
 
     document.getElementById("surname-input").value =
-    character.surname || "";
+        character.surname || "";
 
     document.getElementById("profession-input").value =
         character.profession;
 
     document.getElementById("look1-input").value =
-        character.looks[0] || "";
+        character.looks[0]?.text || "";
 
     document.getElementById("look2-input").value =
-        character.looks[1] || "";
+        character.looks[1]?.text || "";
 
     document.getElementById("look3-input").value =
-        character.looks[2] || "";
+        character.looks[2]?.text || "";
 
     document.getElementById("skill1-input").value =
-        character.skills[0] || "";
+        character.skills[0]?.text || "";
 
     document.getElementById("skill2-input").value =
-        character.skills[1] || "";
+        character.skills[1]?.text || "";
 
     document.getElementById("skill3-input").value =
-        character.skills[2] || "";
+        character.skills[2]?.text || "";
 
     document.getElementById("resource1-input").value =
-        character.resources[0] || "";
+        character.resources[0]?.text || "";
 
     document.getElementById("resource2-input").value =
-        character.resources[1] || "";
+        character.resources[1]?.text || "";
 
     document.getElementById("resource3-input").value =
-        character.resources[2] || "";
+        character.resources[2]?.text || "";
 
     document.getElementById("connection1-input").value =
-        character.connections[0] || "";
+        character.connections[0]?.text || "";
 
     document.getElementById("connection2-input").value =
-        character.connections[1] || "";
+        character.connections[1]?.text || "";
 
     document.getElementById("connection3-input").value =
-        character.connections[2] || "";
+        character.connections[2]?.text || "";
 
     document.getElementById("mark-input").value =
-        character.supernaturalMark;
+        character.supernaturalMarks[0]?.text || "";
 }
