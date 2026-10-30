@@ -155,6 +155,11 @@ function loadCharacter(event) {
                     )
                 );
 
+            localStorage.setItem(
+                "character",
+                JSON.stringify(character)
+            );
+
             renderCharacter(
                 character
             );

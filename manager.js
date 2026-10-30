@@ -110,6 +110,27 @@ function normalizeCharacter(character = {}) {
     };
 }
 
+const storedCharacter =
+    localStorage.getItem(
+        "character"
+    );
+
+if (storedCharacter) {
+    try {
+        character =
+            normalizeCharacter(
+                JSON.parse(
+                    storedCharacter
+                )
+            );
+    } catch {
+        localStorage.removeItem(
+            "character"
+        );
+    }
+}
+
+
 document
     .getElementById("import-json")
     .addEventListener(
@@ -144,9 +165,7 @@ document
         () => {
 
             character =
-                normalizeCharacter(
-                    character
-                );
+                collectCharacter();
 
             localStorage.setItem(
                 "character",
@@ -308,6 +327,11 @@ function loadCharacter(event) {
                 character
             );
 
+            localStorage.setItem(
+                "character",
+                JSON.stringify(character)
+            );
+
         } catch {
 
             alert(
@@ -415,6 +439,12 @@ function renderCharacter(
 
 createEditorRows();
 
+if (character) {
+    renderCharacter(
+        character
+    );
+}
+
 function collectCategory(prefix) {
 
     const results = [];
@@ -450,9 +480,9 @@ function collectCategory(prefix) {
 
 }
 
-function exportCharacter() {
+function collectCharacter() {
 
-    character = {
+    const character = {
 
         firstName:
             document.getElementById(
@@ -497,7 +527,6 @@ function exportCharacter() {
             document.getElementById(
                 "notes"
             ).value.trim()
-
     };
 
     for (let i = 1; i <= 6; i++) {
@@ -519,13 +548,17 @@ function exportCharacter() {
         character.memories.push(
             memory || null
         );
-
     }
 
+    return normalizeCharacter(
+        character
+    );
+}
+
+function exportCharacter() {
+
     character =
-        normalizeCharacter(
-            character
-        );
+        collectCharacter();
 
     const blob =
         new Blob(

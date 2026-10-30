@@ -2,6 +2,25 @@ let scenarioData;
 
 let character = null;
 
+const storedCharacter =
+    localStorage.getItem(
+        "character"
+    );
+
+if (storedCharacter) {
+    try {
+        character =
+            normalizeCharacter(
+                JSON.parse(
+                    storedCharacter
+                )
+            );
+    } catch {
+        localStorage.removeItem(
+            "character"
+        );
+    }
+}
 
 function normalizeCharacter(character = {}) {
 
@@ -169,6 +188,16 @@ async function loadScenario() {
     populateResourceOptions();
     populateConnectionOptions();
     populateMarkOptions();
+
+    if (character) {
+    loadCharacterIntoForm(
+        character
+    );
+
+    renderCharacter(
+        character
+    );
+}
 }
 
 function getRandomUnique(array, count) {
@@ -264,6 +293,11 @@ document
                         character
                     );
 
+                    localStorage.setItem(
+                        "character",
+                        JSON.stringify(character)
+                    );
+
                 } catch {
 
                     alert(
@@ -348,6 +382,10 @@ document.getElementById("export-json").addEventListener("click", () => {
 
 function resetSelections() {
 
+    localStorage.removeItem(
+        "character"
+    );
+
     character = null;
 
     document
@@ -362,8 +400,6 @@ function resetSelections() {
             select.selectedIndex = 0;
         });
     
-    character = null;
-
     document
         .getElementById("character-actions")
         .classList.add("hidden");
@@ -853,6 +889,14 @@ function generateCharacter() {
     };
 
     renderCharacter(character);
+    localStorage.setItem(
+        "character",
+        JSON.stringify(
+            normalizeCharacter(
+                character
+            )
+        )
+    );
 }
 
 function renderCharacter(character) {
