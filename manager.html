@@ -8,17 +8,29 @@
 
     <h1>Character Manager</h1>
 
-    <div class="button-group">
+    <div class="button-row">
 
-        <button
-            id="import-character"
-            class="action-button">
-            Import Character
-        </button>
+        <div class="button-group">
+            <button
+                id="return-generator"
+                class="action-button">
+                Return to Generator
+            </button>
+            <p class="button-note">
+                Return to the character generator.
+            </p>
+        </div>
 
-        <p class="button-note">
-            Load a previously exported character.
-        </p>
+        <div class="button-group">
+            <button
+                id="import-character"
+                class="action-button">
+                Import Character
+            </button>
+            <p class="button-note">
+                Load a previously exported character.
+            </p>
+        </div>
 
     </div>
 
@@ -150,18 +162,32 @@
 
         </div>
     </div>
-    <button
-            id="export-json"
-            class="action-button">
-            Export Updated JSON
-    </button>
 
-    <button
-        id="print-sheet"
-        class="action-button">
-        Open Print Sheet
-    </button>
-    
+    <div class="button-row">
+
+        <div class="button-group">
+            <button
+                    id="export-json"
+                    class="action-button">
+                    Export Updated JSON
+            </button>
+            <p class="button-note">
+                Export the character as a JSON file.
+            </p>
+        </div>
+
+        <div class="button-group">
+            <button
+                id="print-sheet"
+                class="action-button">
+                Open Print Sheet
+            </button>
+            <p class="button-note">
+                Open the character sheet in a new window for printing.
+            </p>
+        </div>
+        
+    </div>
     <script src="manager.js"></script>
 </body>
 </html>

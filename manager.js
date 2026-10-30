@@ -152,6 +152,30 @@ document
     );
 
 document
+    .getElementById(
+        "return-generator"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (character) {
+
+                character =
+                    collectCharacter();
+
+                localStorage.setItem(
+                    "character",
+                    JSON.stringify(character)
+                );
+            }
+
+            window.location.href =
+                "index.html";
+        }
+    );
+
+document
     .getElementById("export-json")
     .addEventListener(
         "click",
@@ -559,6 +583,11 @@ function exportCharacter() {
 
     character =
         collectCharacter();
+
+    localStorage.setItem(
+        "character",
+        JSON.stringify(character)
+    );
 
     const blob =
         new Blob(

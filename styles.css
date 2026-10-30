@@ -270,43 +270,7 @@ textarea {
 
 /* Mobile */
 
-@media (max-width: 768px) {
 
-    body {
-        padding: 0 15px;
-    }
-
-    .field input,
-    .field select {
-        width: 100%;
-    }
-
-    .name-row,
-    .looks-row,
-    .skills-row,
-    .resources-row,
-    .connections-row {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #character-output {
-        display: block;
-        min-width: auto;
-        max-width: 100%;
-    }
-
-    .generator-notes {
-        display: block;
-    }
-
-    .two-column,
-    .relationship-grid,
-    .memory-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
 .sheet {
     width: 8in;
     margin: 0 auto;
@@ -394,6 +358,44 @@ textarea {
 
 .no-print {
     margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 0 15px;
+    }
+
+    .field input,
+    .field select {
+        width: 100%;
+    }
+
+    .name-row,
+    .looks-row,
+    .skills-row,
+    .resources-row,
+    .connections-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #character-output {
+        display: block;
+        min-width: auto;
+        max-width: 100%;
+    }
+
+    .generator-notes {
+        display: block;
+    }
+
+    .two-column,
+    .relationship-grid,
+    .memory-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 @media print {

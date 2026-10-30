@@ -236,6 +236,29 @@ document
     );
 
 document
+    .getElementById("manage-character")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!character) return;
+
+            character =
+                normalizeCharacter(
+                    character
+                );
+
+            localStorage.setItem(
+                "character",
+                JSON.stringify(character)
+            );
+
+            window.location.href =
+                "manager.html";
+        }
+    );
+
+document
     .getElementById("print-sheet")
     .addEventListener(
         "click",
