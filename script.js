@@ -2,6 +2,117 @@ let scenarioData;
 
 let character = null;
 
+
+function normalizeCharacter(character = {}) {
+
+    const validStatuses = [
+        "active",
+        "checked",
+        "lost",
+        "forgotten"
+    ];
+
+    function normalizeTraitArray(items) {
+
+        if (!Array.isArray(items)) {
+            return [];
+        }
+
+        return items
+            .filter(item => item)
+            .map(item => ({
+                text:
+                    typeof item.text === "string"
+                        ? item.text
+                        : "",
+
+                status:
+                    validStatuses.includes(
+                        item.status
+                    )
+                        ? item.status
+                        : "active"
+            }));
+    }
+
+    function normalizeTextArray(items) {
+
+        if (!Array.isArray(items)) {
+            return [];
+        }
+
+        return items
+            .filter(item =>
+                typeof item === "string"
+            )
+            .map(item => item.trim())
+            .filter(item => item.length > 0);
+    }
+
+    return {
+
+        firstName:
+            typeof character.firstName === "string"
+                ? character.firstName
+                : "",
+
+        surname:
+            typeof character.surname === "string"
+                ? character.surname
+                : "",
+
+        gender:
+            typeof character.gender === "string"
+                ? character.gender
+                : "",
+
+        profession:
+            typeof character.profession === "string"
+                ? character.profession
+                : "",
+
+        looks:
+            normalizeTraitArray(
+                character.looks
+            ),
+
+        skills:
+            normalizeTraitArray(
+                character.skills
+            ),
+
+        resources:
+            normalizeTraitArray(
+                character.resources
+            ),
+
+        connections:
+            normalizeTraitArray(
+                character.connections
+            ),
+
+        supernaturalMarks:
+            normalizeTraitArray(
+                character.supernaturalMarks
+            ),
+
+        relationships:
+            normalizeTextArray(
+                character.relationships
+            ),
+
+        memories:
+            normalizeTextArray(
+                character.memories
+            ),
+
+        notes:
+            typeof character.notes === "string"
+                ? character.notes
+                : ""
+    };
+}
+
 async function loadScenario() {
     const response = await fetch("scenarios/seville-1510.json");
     const scenario = await response.json();
@@ -101,6 +212,13 @@ document
         "click",
         () => {
 
+            if (!character) return;
+
+            character =
+                normalizeCharacter(
+                    character
+                );
+
             localStorage.setItem(
                 "character",
                 JSON.stringify(character)
@@ -110,7 +228,6 @@ document
                 "sheet.html",
                 "_blank"
             );
-
         }
     );
 
@@ -133,8 +250,10 @@ document
                 try {
 
                     character =
-                        JSON.parse(
-                            e.target.result
+                        normalizeCharacter(
+                            JSON.parse(
+                                e.target.result
+                            )
                         );
 
                     loadCharacterIntoForm(
@@ -183,20 +302,44 @@ document
     );
 
 document.getElementById("export-json").addEventListener("click", () => {
+
     if (!character) return;
 
+    character =
+        normalizeCharacter(
+            character
+        );
+
     const blob = new Blob(
-        [JSON.stringify(character, null, 2)],
-        { type: "application/json" }
+        [
+            JSON.stringify(
+                character,
+                null,
+                2
+            )
+        ],
+        {
+            type: "application/json"
+        }
     );
 
-    const url = URL.createObjectURL(blob);
+    const url =
+        URL.createObjectURL(
+            blob
+        );
 
-    const a = document.createElement("a");
+    const a =
+        document.createElement(
+            "a"
+        );
+
     a.href = url;
+
     a.download =
         `${character.firstName}-${character.surname}`
-            .replace(/\s+/g, "-") + ".json";
+            .replace(/\s+/g, "-") +
+        ".json";
+
     a.click();
 
     URL.revokeObjectURL(url);
@@ -767,6 +910,7 @@ function renderCharacter(character) {
         .getElementById("character-actions")
         .classList.remove("hidden");
 }
+
 
 function loadCharacterIntoForm(character) {
 

@@ -1,5 +1,115 @@
 let character = null;
 
+function normalizeCharacter(character = {}) {
+
+    const validStatuses = [
+        "active",
+        "checked",
+        "lost",
+        "forgotten"
+    ];
+
+    function normalizeTraitArray(items) {
+
+        if (!Array.isArray(items)) {
+            return [];
+        }
+
+        return items
+            .filter(item => item)
+            .map(item => ({
+                text:
+                    typeof item.text === "string"
+                        ? item.text
+                        : "",
+
+                status:
+                    validStatuses.includes(
+                        item.status
+                    )
+                        ? item.status
+                        : "active"
+            }));
+    }
+
+    function normalizeTextArray(items) {
+
+        if (!Array.isArray(items)) {
+            return [];
+        }
+
+        return items
+            .filter(item =>
+                typeof item === "string"
+            )
+            .map(item => item.trim())
+            .filter(item => item.length > 0);
+    }
+
+    return {
+
+        firstName:
+            typeof character.firstName === "string"
+                ? character.firstName
+                : "",
+
+        surname:
+            typeof character.surname === "string"
+                ? character.surname
+                : "",
+
+        gender:
+            typeof character.gender === "string"
+                ? character.gender
+                : "",
+
+        profession:
+            typeof character.profession === "string"
+                ? character.profession
+                : "",
+
+        looks:
+            normalizeTraitArray(
+                character.looks
+            ),
+
+        skills:
+            normalizeTraitArray(
+                character.skills
+            ),
+
+        resources:
+            normalizeTraitArray(
+                character.resources
+            ),
+
+        connections:
+            normalizeTraitArray(
+                character.connections
+            ),
+
+        supernaturalMarks:
+            normalizeTraitArray(
+                character.supernaturalMarks
+            ),
+
+        relationships:
+            normalizeTextArray(
+                character.relationships
+            ),
+
+        memories:
+            normalizeTextArray(
+                character.memories
+            ),
+
+        notes:
+            typeof character.notes === "string"
+                ? character.notes
+                : ""
+    };
+}
+
 document
     .getElementById("import-json")
     .addEventListener(
@@ -33,6 +143,11 @@ document
         "click",
         () => {
 
+            character =
+                normalizeCharacter(
+                    character
+                );
+
             localStorage.setItem(
                 "character",
                 JSON.stringify(character)
@@ -42,7 +157,6 @@ document
                 "sheet.html",
                 "_blank"
             );
-
         }
     );
 
@@ -184,8 +298,10 @@ function loadCharacter(event) {
         try {
 
             character =
-                JSON.parse(
-                    e.target.result
+                normalizeCharacter(
+                    JSON.parse(
+                        e.target.result
+                    )
                 );
 
             renderCharacter(
@@ -405,6 +521,11 @@ function exportCharacter() {
         );
 
     }
+
+    character =
+        normalizeCharacter(
+            character
+        );
 
     const blob =
         new Blob(
