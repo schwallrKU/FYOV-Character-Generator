@@ -47,6 +47,17 @@ h1 {
     color: #4b2f1a;
 
     margin-top: 0;
+    margin-bottom: 0.25rem;
+}
+
+#scenario-motto {
+    font-family: "El Aventurero", serif;
+    font-weight: normal;
+    font-size: 1.5rem;
+    color: #4b2f1a;
+
+    margin-top: 0;
+    margin-left: 2rem;
 }
 
 
@@ -278,6 +289,19 @@ textarea {
     box-sizing: border-box;
 }
 
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fang-logo {
+    width: 60px;
+    height: auto;
+    opacity: 0.9;
+    margin-top: 8px;
+}
+
 .summary {
     margin-bottom: 15px;
 }
@@ -412,6 +436,11 @@ textarea {
         width: 100%;
 
         padding: 0.2in;
+    }
+
+    .two-column {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
     }
 
     .no-print {

@@ -152,6 +152,12 @@ async function loadScenario() {
     const html = `
         <h2>${scenario.title}</h2>
 
+        ${
+            scenario.motto
+                ? `<p id="scenario-motto">${scenario.motto}</p>`
+                : ""
+        }
+
         <p>
             <strong>Location:</strong>
             ${scenario.setting.location}
